@@ -2158,6 +2158,7 @@
             -webkit-backdrop-filter: blur(10px);
             border-radius: 16px;
             padding: 30px;
+            margin-bottom: 20px;            
             border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
@@ -2484,11 +2485,35 @@
     <!-- Pesan Section -->
     <section id="pesan" class="pesan-section fade-in">
         <div class="pesan-container">
-            {{-- <h2 class="pesan-title">Pesan Untuk Haruna</h2> --}}
-            
+
+            <div class="pesan-form-container">
+                <h3 class="pesan-form-title">Kirim Pesan Untuk Haruna</h3>
+                @if(session('success'))
+                    <div class="alert alert-success" style="background: rgba(16, 185, 129, 0.8); color: white; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                <form action="{{ route('comment.store') }}" method="post" id="comment-form">
+                    @csrf
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" name="nama" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pesan">Pesan</label>
+                        <textarea id="pesan" name="pesan" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-submit-container" style="text-align: left;">
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> Kirim Pesan
+                        </button>
+                    </div>
+                </form>
+            </div>
+
             @if(count($comments) > 0)
             <div class="pesan-grid">
-                @foreach($comments as $comment)
+                @foreach($comments->take(6) as $comment)
                 <div class="pesan-card">
                     <div class="pesan-header">
                         <div class="pesan-avatar">{{ strtoupper(substr($comment->name, 0, 1)) }}</div>
@@ -2508,35 +2533,19 @@
                 </div>
                 @endforeach
             </div>
+            @if(isset($commentsCount) && $commentsCount > 6)
+            <div class="text-center mt-8" style="display: flex; justify-content: center; margin-top: 2rem;">
+                <a href="{{ route('comments.index') }}" class="btn-primary" style="padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 700; box-shadow: 0 8px 32px 0 rgba(255, 107, 129, 0.2);">
+                    Lihat Semua Pesan
+                </a>
+            </div>
+            @endif
             @else
             <div class="no-pesan">
                 <i class="fas fa-comment-slash fa-3x mb-4" style="color: #ff6b81; opacity: 0.5;"></i>
                 <p>Belum ada pesan dari fans. Jadilah yang pertama mengirim pesan untuk Haruna!</p>
             </div>
             @endif
-            
-            <div class="pesan-form-container">
-                <h3 class="pesan-form-title">Kirim Pesan Untuk Haruna</h3>
-                @if(session('success'))
-                    <div class="alert alert-success" style="background: rgba(16, 185, 129, 0.8); color: white; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                <form action="{{ route('comment.store') }}" method="post" id="comment-form">
-                    @csrf
-                    <div class="form-group">
-                        <label for="nama">Nama Lengkap</label>
-                        <input type="text" id="nama" name="nama" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pesan">Pesan</label>
-                        <textarea id="pesan" name="pesan" class="form-control" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">
-                        <i class="fas fa-paper-plane"></i> Kirim Pesan
-                    </button>
-                </form>
-            </div>
         </div>
     </section>
 

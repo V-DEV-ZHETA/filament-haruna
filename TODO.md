@@ -1,17 +1,9 @@
-# Remove Music Player from Website
+# TODO: Implement Comment Section with Pagination
 
 ## Tasks
-- [ ] Remove music player navigation link from index.blade.php
-- [ ] Remove music player section (HTML, CSS, JS) from index.blade.php
-- [ ] Remove audio file scanning logic from PublicController.php
-- [ ] Remove $audioFiles from view data in PublicController.php
-- [ ] Test website functionality after removal
-
-## Files to Edit
-- resources/views/public/index.blade.php
-- app/Http/Controllers/PublicController.php
-
-## Notes
-- Keep video file scanning logic as it's separate from music player
-- Audio files in public/uploads/audio/ can be left as-is unless specified otherwise
-- Ensure navigation and other sections still work properly
+- [ ] Modify PublicController@index to limit comments to 6 on index page
+- [ ] Add new method commentsPage() in PublicController for dedicated comment page
+- [ ] Add route for /comments in routes/web.php
+- [ ] Update resources/views/public/index.blade.php to show only 6 comments and link to full page if >6
+- [ ] Create new view resources/views/public/comments.blade.php for wider comment column
+- [ ] Test the implementation

@@ -49,7 +49,6 @@ class CommentResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable()->label('Name')->toggleable(),
-                Tables\Columns\TextColumn::make('email')->sortable()->searchable()->label('Email')->toggleable(),
                 Tables\Columns\TextColumn::make('subject')->sortable()->searchable()->label('Subject')->toggleable(),
                 Tables\Columns\TextColumn::make('message')->limit(50)->label('Message')->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable()->label('Created At')->toggleable(),

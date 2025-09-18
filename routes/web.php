@@ -9,6 +9,7 @@ Route::middleware([TrackTrafficMiddleware::class])->group(function () {
     Route::get('/galeri', [PublicController::class, 'galeri'])->name('galeri.index');
     Route::get('/member/{id}', [PublicController::class, 'showMember'])->name('member.show');
     Route::get('/berita/{id}', [PublicController::class, 'showBerita'])->name('berita.show');
+    Route::get('/comments', [PublicController::class, 'commentsPage'])->name('comments.index');
 });
 
 Route::post('/comment', [PublicController::class, 'storeComment'])->name('comment.store');

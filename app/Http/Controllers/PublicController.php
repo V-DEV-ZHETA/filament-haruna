@@ -21,7 +21,14 @@ class PublicController extends Controller
         $medsos = MediaSosial::all();
         $galeris = Galeri::all();
         $kontaks = Kontak::all();
-        $comments = Comment::all();
+
+        $commentsCount = Comment::count();
+        if ($commentsCount > 6) {
+            // Show only 6 comments on index page
+            $comments = Comment::orderBy('created_at', 'desc')->take(6)->get();
+        } else {
+            $comments = Comment::all();
+        }
 
         // Get video files from uploads/foto directory
         $videoFiles = [];
@@ -38,7 +45,7 @@ class PublicController extends Controller
             }
         }
 
-        return view('public.index', compact('members', 'beritas', 'medsos', 'galeris', 'kontaks', 'comments', 'videoFiles'));
+        return view('public.index', compact('members', 'beritas', 'medsos', 'galeris', 'kontaks', 'comments', 'videoFiles', 'commentsCount'));
     }
 
     public function galeri()
@@ -117,5 +124,11 @@ class PublicController extends Controller
             'success' => true,
             'likes' => $comment->likes
         ]);
+    }
+
+    public function commentsPage()
+    {
+        $comments = Comment::orderBy('created_at', 'desc')->paginate(10);
+        return view('public.comments', compact('comments'));
     }
 }
