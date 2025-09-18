@@ -1,14 +1,17 @@
-# TODO: Make Like Feature Real-Time
+# Remove Music Player from Website
 
 ## Tasks
-- [x] Create migration to add `likes` column to comments table
-- [x] Update Comment model to include `likes` in fillable
-- [x] Add route for POST `/comments/{id}/like`
-- [x] Add `like` method in PublicController to handle like/unlike and return JSON
-- [x] Run migrations
-- [x] Install Pusher PHP SDK and Laravel Echo
-- [x] Set up Laravel broadcasting with Pusher for real-time updates
-- [x] Create LikeUpdated event and broadcast it
-- [x] Update frontend to listen for real-time like updates using Laravel Echo
-- [ ] Configure broadcasting (add Pusher credentials to .env)
-- [ ] Test real-time functionality
+- [ ] Remove music player navigation link from index.blade.php
+- [ ] Remove music player section (HTML, CSS, JS) from index.blade.php
+- [ ] Remove audio file scanning logic from PublicController.php
+- [ ] Remove $audioFiles from view data in PublicController.php
+- [ ] Test website functionality after removal
+
+## Files to Edit
+- resources/views/public/index.blade.php
+- app/Http/Controllers/PublicController.php
+
+## Notes
+- Keep video file scanning logic as it's separate from music player
+- Audio files in public/uploads/audio/ can be left as-is unless specified otherwise
+- Ensure navigation and other sections still work properly

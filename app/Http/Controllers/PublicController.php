@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Exception;
 use App\Models\Member;
 use App\Models\Berita;
 use App\Models\MediaSosial;
@@ -21,7 +23,22 @@ class PublicController extends Controller
         $kontaks = Kontak::all();
         $comments = Comment::all();
 
-        return view('public.index', compact('members', 'beritas', 'medsos', 'galeris', 'kontaks', 'comments'));
+        // Get video files from uploads/foto directory
+        $videoFiles = [];
+        $videoPath = public_path('uploads/foto');
+        if (is_dir($videoPath)) {
+            $files = scandir($videoPath);
+            foreach ($files as $file) {
+                if ($file !== '.' && $file !== '..' && in_array(pathinfo($file, PATHINFO_EXTENSION), ['mp4', 'webm', 'ogg'])) {
+                    $videoFiles[] = [
+                        'name' => pathinfo($file, PATHINFO_FILENAME),
+                        'path' => asset('uploads/foto/' . $file)
+                    ];
+                }
+            }
+        }
+
+        return view('public.index', compact('members', 'beritas', 'medsos', 'galeris', 'kontaks', 'comments', 'videoFiles'));
     }
 
     public function galeri()
@@ -33,18 +50,45 @@ class PublicController extends Controller
 
     public function storeComment(\Illuminate\Http\Request $request)
     {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'pesan' => 'required|string',
-        ]);
+        try {
+            $validated = $request->validate([
+                'nama' => 'required|string|max:255',
+                'pesan' => 'required|string',
+            ]);
 
-        \App\Models\Comment::create([
-            'name' => $validated['nama'],
-            'subject' => 'Pesan untuk Haruna',
-            'message' => $validated['pesan'],
-        ]);
+            $comment = \App\Models\Comment::create([
+                'name' => $validated['nama'],
+                'subject' => 'Pesan untuk Haruna',
+                'message' => $validated['pesan'],
+            ]);
 
-        return redirect()->back()->with('success', 'Pesan Anda telah terkirim. Terima kasih!');
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Pesan Anda telah terkirim. Terima kasih!',
+                    'comment' => $comment
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Pesan Anda telah terkirim. Terima kasih!');
+        } catch (ValidationException $e) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validasi gagal.',
+                    'errors' => $e->errors(),
+                ], 422);
+            }
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (Exception $e) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Terjadi kesalahan saat mengirim pesan.',
+                ], 500);
+            }
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengirim pesan.');
+        }
     }
 
     public function showMember($id)

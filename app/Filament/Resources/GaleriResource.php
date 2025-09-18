@@ -10,6 +10,9 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -17,7 +20,7 @@ class GaleriResource extends Resource
 {
     protected static ?string $model = Galeri::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-photo';
 
     public static function form(Form $form): Form
     {
@@ -59,10 +62,10 @@ class GaleriResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->sortable()->searchable()->label('Judul')->toggleable(),
-                Tables\Columns\TextColumn::make('category')->sortable()->searchable()->label('Kategori')->toggleable(),
-                Tables\Columns\ImageColumn::make('image')->label('Gambar'),
-                Tables\Columns\BooleanColumn::make('active')->sortable()->label('Aktif')->toggleable(),
+                TextColumn::make('title')->label('Judul')->weight('bold')->limit(30),
+                TextColumn::make('category')->label('Kategori')->limit(30),
+                ImageColumn::make('image')->label('Gambar')->rounded(),
+                Tables\Columns\BooleanColumn::make('active')->sortable()->label('Aktif'),
             ])
             ->filters([
                 //

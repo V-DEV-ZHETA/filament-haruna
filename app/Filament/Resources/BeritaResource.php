@@ -10,6 +10,10 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Resources\Concerns\InteractsWithTable;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -17,7 +21,7 @@ class BeritaResource extends Resource
 {
     protected static ?string $model = Berita::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
     public static function form(Form $form): Form
     {
@@ -56,12 +60,11 @@ class BeritaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image')->label('Gambar'),
-                Tables\Columns\TextColumn::make('video')->label('Video')->formatStateUsing(fn ($state) => $state ? 'Ada' : 'Tidak')->toggleable(),
-                Tables\Columns\TextColumn::make('title')->sortable()->searchable()->label('Judul')->toggleable(),
-                Tables\Columns\TextColumn::make('content')->label('Deskripsi')->limit(50)->toggleable(),
-                Tables\Columns\TextColumn::make('video_url')->label('URL Sumber Berita')->url(fn ($record) => $record->video_url)->toggleable(),
-                Tables\Columns\TextColumn::make('published_at')->label('Tanggal')->date()->sortable()->toggleable(),
+                ImageColumn::make('image')->label('Gambar')->rounded(),
+                TextColumn::make('title')->label('Judul')->weight('bold')->limit(30),
+                TextColumn::make('content')->label('Deskripsi')->limit(50),
+                TextColumn::make('video_url')->label('URL Sumber Berita')->url(fn ($record) => $record->video_url),
+                TextColumn::make('published_at')->label('Tanggal')->date(),
             ])
             ->filters([
                 //

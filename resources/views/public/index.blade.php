@@ -118,13 +118,14 @@
             background: url('https://ik.imagekit.io/hdxn6kcob/ChatGPT%20Image%20Jul%2018,%202025,%2011_20_31%20PM.png?updatedAt=1752855683255') no-repeat center center;
             background-size: cover;
             position: relative;
-            height: 400px;
+            height: 450px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: white;
             overflow: hidden;
+            object-fit: cover;  
         }
         
         .hero-bg::before {
@@ -1958,6 +1959,11 @@
             transform: translateY(-50%) scale(1.1);
         }
         
+        /* Music Player Section Styles */
+        /* Removed music player section styles */
+
+        /* Music-related CSS removed */
+
         /* Pesan Section Styles */
         .pesan-section {
             background: rgba(255, 255, 255, 0.3);
@@ -2222,6 +2228,7 @@
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;900&display=swap" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 
@@ -2236,7 +2243,7 @@
 
 <header>
     <nav>
-        <ul>
+        <ul class="menu flex flex-col md:flex-row md:justify-center md:gap-8 p-0 m-0">
             <li><a href="#beranda">Beranda</a></li>
             <li><a href="#members">Member</a></li>
             <li><a href="#medsos">Medsos</a></li>
@@ -2247,6 +2254,50 @@
         </ul>
     </nav>
 </header>
+
+<style>
+    .menu {
+        display: flex !important;
+        flex-direction: column;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 1rem 2rem;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        max-height: calc(100vh - 60px);
+        overflow-y: auto;
+    }
+
+    .menu li a {
+        display: block;
+        padding: 0.5rem 0;
+        font-weight: 600;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .menu li a:hover {
+        color: #4a90e2;
+    }
+
+    @media (min-width: 768px) {
+        .menu {
+            flex-direction: row !important;
+            gap: 2rem !important;
+            background: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            max-height: none !important;
+            overflow: visible !important;
+        }
+
+        .menu li a {
+            padding: 0;
+            color: #000;
+        }
+    }
+</style>
 
 <!-- Deskripsi Komunitas Section -->
 <section class="deskripsi-section fade-in">
@@ -2262,12 +2313,15 @@
     </div>
 </section>
 
+<!-- Music Player Section -->
+    <!-- Removed music player section as per request -->
+
 <main class="container mx-auto px-4 py-8 space-y-16">
 
     <!-- Members Section -->
     <section id="members" class="member-section fade-in">
         <div class="member-container">
-            <h2 class="member-title">Active Member</h2>
+            <h2 class="member-title">Struktur Member</h2>
             <div class="member-grid">
                 @foreach($members as $member)
                 <a href="{{ route('member.show', $member->id) }}" class="member-card">
@@ -2468,17 +2522,17 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <form action="{{ route('comment.store') }}" method="post">
+                <form action="{{ route('comment.store') }}" method="post" id="comment-form">
                     @csrf
                     <div class="form-group">
-                        <label for="nama-pesan">Nama Anda</label>
-                        <input type="text" id="nama-pesan" name="nama" class="form-control" required>
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" name="nama" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="pesan-haruna">Pesan</label>
-                        <textarea id="pesan-haruna" name="pesan" class="form-control" required></textarea>
+                        <label for="pesan">Pesan</label>
+                        <textarea id="pesan" name="pesan" class="form-control" required></textarea>
                     </div>
-                    <button type="submit" class="btn-submit" style="width: 100%; justify-content: center;">
+                    <button type="submit" class="btn-submit">
                         <i class="fas fa-paper-plane"></i> Kirim Pesan
                     </button>
                 </form>
@@ -2582,6 +2636,48 @@
             </div>
         </div>
     </section>
+
+    
+
+    <style>
+        .music-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (max-width: 768px) {
+            .music-container {
+                padding: 0 15px;
+            }
+
+            .music-card {
+                padding: 20px;
+            }
+
+            .music-title {
+                font-size: 2rem;
+            }
+
+            .music-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .music-container {
+                padding: 0 10px;
+            }
+
+            .music-card {
+                padding: 15px;
+            }
+
+            .music-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 
 </main>
 
@@ -2800,7 +2896,6 @@
             });
         });
         
-        // Lightbox functionality
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightbox-image');
         const lightboxTitle = document.getElementById('lightbox-title');
@@ -2813,7 +2908,6 @@
         const galleryItemsArray = Array.from(document.querySelectorAll('.gallery-item'));
         let currentIndex = 0;
         
-        // Fungsi untuk membuka lightbox dengan index tertentu
         function openLightbox(index) {
             const galleryItem = galleryItemsArray[index];
             const image = galleryItem.querySelector('img');
@@ -2985,13 +3079,210 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     window.scrollTo({
                         top: target.offsetTop - 80,
                         behavior: 'smooth'
                     });
+                }
+            });
+        });
+
+        // Music player download functionality removed
+
+        // Comment form AJAX functionality
+        const commentForm = document.getElementById('comment-form');
+        if (commentForm) {
+            commentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success message
+                        const successDiv = document.createElement('div');
+                        successDiv.style.cssText = 'background: rgba(16, 185, 129, 0.8); color: white; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center;';
+                        successDiv.textContent = data.message;
+                        commentForm.parentNode.insertBefore(successDiv, commentForm);
+
+                        // Clear form
+                        commentForm.reset();
+
+                        // Update comment list
+                        const pesanGrid = document.querySelector('.pesan-grid');
+                        if (pesanGrid) {
+                            const newComment = document.createElement('div');
+                            newComment.className = 'pesan-card';
+                            newComment.innerHTML = `
+                                <div class="pesan-header">
+                                    <div class="pesan-avatar">${data.comment.name.charAt(0).toUpperCase()}</div>
+                                    <div class="pesan-info">
+                                        <div class="pesan-name">${data.comment.name}</div>
+                                        <div class="pesan-date">${new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
+                                    </div>
+                                </div>
+                                <div class="pesan-content">
+                                    <div class="pesan-message">${data.comment.message}</div>
+                                    <div class="pesan-footer">
+                                        <button class="pesan-like-btn" data-id="${data.comment.id}">
+                                            <i class="far fa-heart"></i> <span class="like-count">0</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            `;
+                            pesanGrid.insertBefore(newComment, pesanGrid.firstChild);
+
+                            // Add like functionality to new comment
+                            const newLikeBtn = newComment.querySelector('.pesan-like-btn');
+                            newLikeBtn.addEventListener('click', function() {
+                                const commentId = this.getAttribute('data-id');
+                                const likeCountElement = this.querySelector('.like-count');
+                                const heartIcon = this.querySelector('i');
+
+                                if (this.classList.contains('liked')) {
+                                    this.classList.remove('liked');
+                                    heartIcon.classList.remove('fas');
+                                    heartIcon.classList.add('far');
+                                    const currentCount = parseInt(likeCountElement.textContent);
+                                    likeCountElement.textContent = currentCount - 1;
+                                } else {
+                                    this.classList.add('liked');
+                                    heartIcon.classList.remove('far');
+                                    heartIcon.classList.add('fas');
+                                    const currentCount = parseInt(likeCountElement.textContent);
+                                    likeCountElement.textContent = currentCount + 1;
+                                }
+
+                                fetch(`/comments/${commentId}/like`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log('Like updated:', data);
+                                })
+                                .catch(error => {
+                                    console.error('Error updating like:', error);
+                                });
+                            });
+                        }
+
+                        // Remove success message after 5 seconds
+                        setTimeout(() => {
+                            successDiv.remove();
+                        }, 5000);
+                    } else {
+                        // Show error message
+                        const errorDiv = document.createElement('div');
+                        errorDiv.style.cssText = 'background: rgba(255, 107, 129, 0.8); color: white; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center;';
+                        errorDiv.textContent = data.message || 'Terjadi kesalahan saat mengirim pesan.';
+                        commentForm.parentNode.insertBefore(errorDiv, commentForm);
+
+                        // Remove error message after 5 seconds
+                        setTimeout(() => {
+                            errorDiv.remove();
+                        }, 5000);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    const errorDiv = document.createElement('div');
+                    errorDiv.style.cssText = 'background: rgba(255, 107, 129, 0.8); color: white; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center;';
+                    errorDiv.textContent = 'Terjadi kesalahan saat mengirim pesan.';
+                    commentForm.parentNode.insertBefore(errorDiv, commentForm);
+
+                    // Remove error message after 5 seconds
+                    setTimeout(() => {
+                        errorDiv.remove();
+                    }, 5000);
+                });
+            });
+        }
+
+        // Custom audio player styling for better cross-browser support
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayers = document.querySelectorAll('.music-player');
+
+            audioPlayers.forEach((audio) => {
+                const player = audio.previousElementSibling; // custom player div
+                const playPauseBtn = player.querySelector('.play-pause-btn');
+                const progressBar = player.querySelector('.progress-bar');
+                const progressContainer = player.querySelector('.progress-container');
+                const currentTimeElem = player.querySelector('.current-time');
+                const durationElem = player.querySelector('.duration');
+                const volumeSlider = player.querySelector('.volume-slider');
+
+                // Update duration when metadata is loaded
+                audio.addEventListener('loadedmetadata', () => {
+                    durationElem.textContent = formatTime(audio.duration);
+                });
+
+                // Update progress bar and current time during playback
+                audio.addEventListener('timeupdate', () => {
+                    const progressPercent = (audio.currentTime / audio.duration) * 100;
+                    progressBar.style.width = progressPercent + '%';
+                    currentTimeElem.textContent = formatTime(audio.currentTime);
+                });
+
+                // Play/pause toggle
+                playPauseBtn.addEventListener('click', () => {
+                    if (audio.paused) {
+                        // Pause all other audios
+                        audioPlayers.forEach((otherAudio) => {
+                            if (otherAudio !== audio) {
+                                otherAudio.pause();
+                                otherAudio.previousElementSibling.querySelector('.play-pause-btn i').classList.replace('fa-pause', 'fa-play');
+                            }
+                        });
+                        audio.play();
+                        playPauseBtn.querySelector('i').classList.replace('fa-play', 'fa-pause');
+                    } else {
+                        audio.pause();
+                        playPauseBtn.querySelector('i').classList.replace('fa-pause', 'fa-play');
+                    }
+                });
+
+                // Seek audio on progress bar click
+                progressContainer.addEventListener('click', (e) => {
+                    const rect = progressContainer.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    const width = rect.width;
+                    const newTime = (clickX / width) * audio.duration;
+                    audio.currentTime = newTime;
+                });
+
+                // Volume control
+                volumeSlider.addEventListener('input', () => {
+                    audio.volume = volumeSlider.value;
+                });
+
+                // Reset play button when audio ends
+                audio.addEventListener('ended', () => {
+                    playPauseBtn.querySelector('i').classList.replace('fa-pause', 'fa-play');
+                    progressBar.style.width = '0%';
+                    currentTimeElem.textContent = '0:00';
+                });
+
+                // Format time helper
+                function formatTime(seconds) {
+                    const mins = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    return mins + ':' + (secs < 10 ? '0' : '') + secs;
                 }
             });
         });
