@@ -1,25 +1,14 @@
-# TODO: Web Komunitas Dance Cover Haruna
+# TODO: Make Like Feature Real-Time
 
-## Models and Migrations
-- [x] Create Member model and migration
-- [x] Create Berita (News) model and migration
-- [x] Create MediaSosial (Social Media) model and migration
-- [x] Create Galeri (Gallery) model and migration
-- [x] Create Kontak (Contact) model and migration
-
-## Filament Resources
-- [x] Create MemberResource
-- [x] Create BeritaResource (updated form to image, title, description, source url)
-- [x] Create MediaSosialResource
-- [x] Create GaleriResource
-- [x] Create KontakResource
-
-## Public Pages
-- [x] Create PublicController for displaying data
-- [x] Create public views: members, berita (created berita.blade.php), media_sosial, galeri, kontak
-- [x] Update routes/web.php for public routes (added berita.show)
-
-## Database and Testing
+## Tasks
+- [x] Create migration to add `likes` column to comments table
+- [x] Update Comment model to include `likes` in fillable
+- [x] Add route for POST `/comments/{id}/like`
+- [x] Add `like` method in PublicController to handle like/unlike and return JSON
 - [x] Run migrations
-- [ ] Test admin panel access
-- [ ] Test public pages
+- [x] Install Pusher PHP SDK and Laravel Echo
+- [x] Set up Laravel broadcasting with Pusher for real-time updates
+- [x] Create LikeUpdated event and broadcast it
+- [x] Update frontend to listen for real-time like updates using Laravel Echo
+- [ ] Configure broadcasting (add Pusher credentials to .env)
+- [ ] Test real-time functionality

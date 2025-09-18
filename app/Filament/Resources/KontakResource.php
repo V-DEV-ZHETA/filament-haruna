@@ -20,26 +20,31 @@ class KontakResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('type')
-                    ->options([
-                        'email' => 'Email',
-                        'phone' => 'Phone',
-                        'address' => 'Address',
-                        'hours' => 'Jam Operasional',
-                        'facebook' => 'Facebook',
-                        'instagram' => 'Instagram',
-                        'twitter' => 'Twitter',
-                        'youtube' => 'YouTube',
-                        'tiktok' => 'TikTok',
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\Select::make('type')
+                            ->options([
+                                'email' => 'Email',
+                                'phone' => 'Phone',
+                                'address' => 'Address',
+                                'hours' => 'Jam Operasional',
+                                'facebook' => 'Facebook',
+                                'instagram' => 'Instagram',
+                                'twitter' => 'Twitter',
+                                'youtube' => 'YouTube',
+                                'tiktok' => 'TikTok',
+                            ])
+                            ->required(),
+                        Forms\Components\TextInput::make('value')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('label')
+                            ->maxLength(255),
+                        Forms\Components\Toggle::make('active')
+                            ->default(true),
                     ])
-                    ->required(),
-                Forms\Components\TextInput::make('value')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('label')
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('active')
-                    ->default(true),
+                    ->columns(1)
+                    ->columnSpan('full'),
             ]);
     }
 
@@ -47,19 +52,19 @@ class KontakResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('type')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('value')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('label')->sortable()->searchable(),
-                Tables\Columns\BooleanColumn::make('active')->sortable(),
+                Tables\Columns\TextColumn::make('type')->sortable()->searchable()->label('Tipe')->toggleable(),
+                Tables\Columns\TextColumn::make('value')->sortable()->searchable()->label('Value')->toggleable(),
+                Tables\Columns\TextColumn::make('label')->sortable()->searchable()->label('Label')->toggleable(),
+                Tables\Columns\BooleanColumn::make('active')->sortable()->label('Aktif')->toggleable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->icon('heroicon-o-pencil')->label('Edit'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Delete Selected'),
             ]);
     }
 

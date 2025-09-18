@@ -20,19 +20,27 @@ class CommentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('subject')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('message')
-                    ->required()
-                    ->maxLength(65535),
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->required()
+                                    ->maxLength(255),
+                                Forms\Components\TextInput::make('email')
+                                    ->email()
+                                    ->required()
+                                    ->maxLength(255),
+                            ]),
+                        Forms\Components\TextInput::make('subject')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\Textarea::make('message')
+                            ->required()
+                            ->maxLength(65535),
+                    ])
+                    ->columns(1)
+                    ->columnSpan('full'),
             ]);
     }
 
@@ -40,19 +48,21 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('message')->limit(50),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
+                Tables\Columns\TextColumn::make('name')->sortable()->searchable()->label('Name')->toggleable(),
+                Tables\Columns\TextColumn::make('email')->sortable()->searchable()->label('Email')->toggleable(),
+                Tables\Columns\TextColumn::make('subject')->sortable()->searchable()->label('Subject')->toggleable(),
+                Tables\Columns\TextColumn::make('message')->limit(50)->label('Message')->toggleable(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable()->label('Created At')->toggleable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make()->icon('heroicon-o-eye')->label('View'),
+                Tables\Actions\DeleteAction::make()->icon('heroicon-o-trash')->label('Delete'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Delete Selected'),
             ]);
     }
 

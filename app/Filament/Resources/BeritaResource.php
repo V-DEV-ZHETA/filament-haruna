@@ -23,24 +23,32 @@ class BeritaResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->directory('berita')
-                    ->maxSize(15360),
-                Forms\Components\FileUpload::make('video')
-                    ->directory('berita')
-                    ->maxSize(102400),
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('content')
-                    ->label('Deskripsi')
-                    ->required(),
-                Forms\Components\TextInput::make('video_url')
-                    ->label('URL Sumber Berita')
-                    ->maxLength(255),
-                Forms\Components\DatePicker::make('published_at')
-                    ->label('Tanggal Berita'),
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\FileUpload::make('image')
+                                    ->image()
+                                    ->directory('berita')
+                                    ->maxSize(15360),
+                                Forms\Components\FileUpload::make('video')
+                                    ->directory('berita')
+                                    ->maxSize(102400),
+                            ]),
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\Textarea::make('content')
+                            ->label('Deskripsi')
+                            ->required(),
+                        Forms\Components\TextInput::make('video_url')
+                            ->label('URL Sumber Berita')
+                            ->maxLength(255),
+                        Forms\Components\DatePicker::make('published_at')
+                            ->label('Tanggal Berita'),
+                    ])
+                    ->columns(1)
+                    ->columnSpan('full'),
             ]);
     }
 
@@ -48,22 +56,22 @@ class BeritaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
-                Tables\Columns\TextColumn::make('video')->label('Video')->formatStateUsing(fn ($state) => $state ? 'Ada' : 'Tidak'),
-                Tables\Columns\TextColumn::make('title')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('content')->label('Deskripsi')->limit(50),
-                Tables\Columns\TextColumn::make('video_url')->label('URL Sumber Berita')->url(fn ($record) => $record->video_url),
-                Tables\Columns\TextColumn::make('published_at')->label('Tanggal')->date()->sortable(),
+                Tables\Columns\ImageColumn::make('image')->label('Gambar'),
+                Tables\Columns\TextColumn::make('video')->label('Video')->formatStateUsing(fn ($state) => $state ? 'Ada' : 'Tidak')->toggleable(),
+                Tables\Columns\TextColumn::make('title')->sortable()->searchable()->label('Judul')->toggleable(),
+                Tables\Columns\TextColumn::make('content')->label('Deskripsi')->limit(50)->toggleable(),
+                Tables\Columns\TextColumn::make('video_url')->label('URL Sumber Berita')->url(fn ($record) => $record->video_url)->toggleable(),
+                Tables\Columns\TextColumn::make('published_at')->label('Tanggal')->date()->sortable()->toggleable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->icon('heroicon-o-pencil')->label('Edit'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()->label('Delete Selected'),
                 ]),
             ]);
     }

@@ -20,18 +20,23 @@ class MediaSosialResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('platform')
-                    ->required()
-                    ->default('unknown')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('username')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('url')
-                    ->required()
-                    ->default('')
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('active')
-                    ->default(true),
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('platform')
+                            ->required()
+                            ->default('unknown')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('username')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('url')
+                            ->required()
+                            ->default('')
+                            ->maxLength(255),
+                        Forms\Components\Toggle::make('active')
+                            ->default(true),
+                    ])
+                    ->columns(1)
+                    ->columnSpan('full'),
             ]);
     }
 
@@ -39,19 +44,19 @@ class MediaSosialResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('platform'),
-                Tables\Columns\TextColumn::make('username'),
-                Tables\Columns\TextColumn::make('url'),
-                Tables\Columns\BooleanColumn::make('active'),
+                Tables\Columns\TextColumn::make('platform')->label('Platform')->toggleable(),
+                Tables\Columns\TextColumn::make('username')->label('Username')->toggleable(),
+                Tables\Columns\TextColumn::make('url')->label('URL')->toggleable(),
+                Tables\Columns\BooleanColumn::make('active')->label('Aktif')->toggleable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->icon('heroicon-o-pencil')->label('Edit'),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make()->label('Delete Selected'),
             ]);
     }
 

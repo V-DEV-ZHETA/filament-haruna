@@ -6,6 +6,8 @@
     <title>Komunitas Dance Cover Haruna</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.15.3/dist/echo.iife.js"></script>
     <style>
         /* Smooth scrolling untuk seluruh halaman */
         html {
@@ -1605,6 +1607,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 16px;
+            margin-bottom: 25px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             overflow: hidden;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
@@ -1955,6 +1958,225 @@
             transform: translateY(-50%) scale(1.1);
         }
         
+        /* Pesan Section Styles */
+        .pesan-section {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 60px 0;
+            border-radius: 20px;
+            margin: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pesan-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 129, 0.1) 0%, transparent 70%);
+            z-index: 0;
+            animation: rotate 30s linear infinite reverse;
+        }
+        
+        .pesan-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .pesan-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ff6b81;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .pesan-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b81, #c7d8f9);
+            border-radius: 2px;
+        }
+        
+        .pesan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .pesan-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            transition: all 0.4s ease;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pesan-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b81, #c7d8f9);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        
+        .pesan-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .pesan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px 0 rgba(31, 38, 135, 0.25);
+        }
+        
+        .pesan-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .pesan-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b81, #c7d8f9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .pesan-info {
+            flex: 1;
+        }
+        
+        .pesan-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .pesan-date {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .pesan-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pesan-message {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .pesan-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .pesan-like-btn {
+            background: none;
+            border: none;
+            color: #ff6b81;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .pesan-like-btn:hover {
+            color: #ff4757;
+            transform: scale(1.1);
+        }
+        
+        .pesan-like-btn.liked {
+            color: #ff4757;
+        }
+        
+        .no-pesan {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .pesan-form-container {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        
+        .pesan-form-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .pesan-form-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b81, #c7d8f9);
+            border-radius: 2px;
+        }
+        
         /* Animasi untuk elemen saat scroll */
         .fade-in {
             opacity: 0;
@@ -1993,6 +2215,10 @@
                 width: 60px;
                 height: 60px;
             }
+            
+            .pesan-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;900&display=swap" rel="stylesheet">
@@ -2016,6 +2242,7 @@
             <li><a href="#medsos">Medsos</a></li>
             <li><a href="#galeri">Galeri</a></li>
             <li><a href="#berita">Berita</a></li>
+            <li><a href="#pesan">Pesan</a></li>
             <li><a href="#kontak">Kontak</a></li>
         </ul>
     </nav>
@@ -2128,9 +2355,8 @@
     </section>
 
     <!-- Galeri Section -->
-        <section id="galeri" class="gallery-section fade-in">
+    <section id="galeri" class="gallery-section fade-in">
         <div class="gallery-container">
-            <h2 class="gallery-title">Galeri Foto</h2>
             
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">Semua</button>
@@ -2140,22 +2366,22 @@
             </div>
             
             <div class="gallery-grid">
-                @foreach($galeris as $galeri)
+                @foreach($galeris->take(8) as $galeri)
                 <div class="gallery-item" data-category="{{ $galeri->category ?? 'performance' }}">
                     <div class="gallery-image-container">
                         @if($galeri->image)
                         <img src="{{ asset('storage/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="gallery-image" />
                         @else
                         <div class="w-full h-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
-                            <i class="fas fa-image text-4xl"></i>
+                            <i class="fas fa-image text-4x"></i>
                         </div>
                         @endif
                     </div>
-                    
+
                     <div class="gallery-content">
                         <h3 class="gallery-title-text">{{ $galeri->title }}</h3>
                         <p class="gallery-description">{{ Str::limit($galeri->description, 100) }}</p>
-                        
+
                         <div class="gallery-meta">
                             <span class="gallery-date">{{ date('d M Y', strtotime($galeri->created_at)) }}</span>
                             </button>
@@ -2164,6 +2390,11 @@
                 </div>
                 @endforeach
             </div>
+            @if(count($galeris) > 8)
+            <div class="text-center mt-8">
+                <a href="{{ route('galeri.index') }}" class="btn-primary">Lihat Semua Galeri</a>
+            </div>
+            @endif
     </section>
 
     <!-- Berita Section -->
@@ -2192,6 +2423,65 @@
                     </div>
                 </div>
                 @endforeach
+            </div>
+        </div>
+    </section>
+
+    <!-- Pesan Section -->
+    <section id="pesan" class="pesan-section fade-in">
+        <div class="pesan-container">
+            {{-- <h2 class="pesan-title">Pesan Untuk Haruna</h2> --}}
+            
+            @if(count($comments) > 0)
+            <div class="pesan-grid">
+                @foreach($comments as $comment)
+                <div class="pesan-card">
+                    <div class="pesan-header">
+                        <div class="pesan-avatar">{{ strtoupper(substr($comment->name, 0, 1)) }}</div>
+                        <div class="pesan-info">
+                            <div class="pesan-name">{{ $comment->name }}</div>
+                            <div class="pesan-date">{{ date('d M Y, H:i', strtotime($comment->created_at)) }}</div>
+                        </div>
+                    </div>
+                    <div class="pesan-content">
+                        <div class="pesan-message">{{ $comment->message }}</div>
+                        <div class="pesan-footer">
+                            <button class="pesan-like-btn" data-id="{{ $comment->id }}">
+                                <i class="far fa-heart"></i> <span class="like-count">{{ $comment->likes ?? 0 }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @else
+            <div class="no-pesan">
+                <i class="fas fa-comment-slash fa-3x mb-4" style="color: #ff6b81; opacity: 0.5;"></i>
+                <p>Belum ada pesan dari fans. Jadilah yang pertama mengirim pesan untuk Haruna!</p>
+            </div>
+            @endif
+            
+            <div class="pesan-form-container">
+                <h3 class="pesan-form-title">Kirim Pesan Untuk Haruna</h3>
+                @if(session('success'))
+                    <div class="alert alert-success" style="background: rgba(16, 185, 129, 0.8); color: white; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                <form action="{{ route('comment.store') }}" method="post">
+                    @csrf
+                    <div class="form-group">
+                        <label for="nama-pesan">Nama Anda</label>
+                        <input type="text" id="nama-pesan" name="nama" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pesan-haruna">Pesan</label>
+                        <textarea id="pesan-haruna" name="pesan" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-paper-plane"></i> Kirim Pesan
+                    </button>
+                </form>
             </div>
         </div>
     </section>
@@ -2263,7 +2553,7 @@
                 </div>
                 
                 <div class="kontak-form">
-                    <h3>Pesan Untuk Haruna!!</h3>
+                    <h3>Hubungi Kami</h3>
                     @if(session('success'))
                         <div class="alert alert-success" style="background: rgba(16, 185, 129, 0.8); color: white; padding: 10px; border-radius: 8px; margin-bottom: 20px;">
                             {{ session('success') }}
@@ -2272,9 +2562,14 @@
                     <form action="{{ route('comment.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="nama">Nama </label>
+                            <label for="nama">Nama Lengkap</label>
                             <input type="text" id="nama" name="nama" class="form-control" required>
                         </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+
                         <div class="form-group">
                             <label for="pesan">Pesan</label>
                             <textarea id="pesan" name="pesan" class="form-control" required></textarea>
@@ -2314,6 +2609,14 @@
 </div>
 
 <script>
+    // Initialize Laravel Echo with Pusher
+    window.Echo = new Echo({
+        broadcaster: 'pusher',
+        key: '{{ env("PUSHER_APP_KEY") }}',
+        cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
+        forceTLS: true
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
         // Fungsi untuk mengambil data Instagram
         async function getInstagramData(username) {
@@ -2589,6 +2892,74 @@
                 openLightbox(currentIndex);
             });
         }
+        
+        // Like button functionality
+        const likeButtons = document.querySelectorAll('.pesan-like-btn');
+
+        likeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const commentId = this.getAttribute('data-id');
+                const likeCountElement = this.querySelector('.like-count');
+                const heartIcon = this.querySelector('i');
+
+                // Toggle liked state
+                if (this.classList.contains('liked')) {
+                    this.classList.remove('liked');
+                    heartIcon.classList.remove('fas');
+                    heartIcon.classList.add('far');
+
+                    // Update like count
+                    const currentCount = parseInt(likeCountElement.textContent);
+                    likeCountElement.textContent = currentCount - 1;
+                } else {
+                    this.classList.add('liked');
+                    heartIcon.classList.remove('far');
+                    heartIcon.classList.add('fas');
+
+                    // Update like count
+                    const currentCount = parseInt(likeCountElement.textContent);
+                    likeCountElement.textContent = currentCount + 1;
+                }
+
+                // Send AJAX request to update like count in database
+                fetch(`/comments/${commentId}/like`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Like updated:', data);
+                })
+                .catch(error => {
+                    console.error('Error updating like:', error);
+                });
+            });
+        });
+
+        // Real-time like updates using Laravel Echo
+        window.Echo.channel('comments')
+            .listen('.comment.liked', (e) => {
+                console.log('Real-time like update received:', e);
+
+                // Find the comment element with the matching ID
+                const commentElement = document.querySelector(`[data-id="${e.comment_id}"]`);
+                if (commentElement) {
+                    const likeCountElement = commentElement.querySelector('.like-count');
+                    if (likeCountElement) {
+                        // Update the like count with the new value from the server
+                        likeCountElement.textContent = e.likes;
+
+                        // Add a subtle animation to indicate the update
+                        likeCountElement.style.transform = 'scale(1.2)';
+                        setTimeout(() => {
+                            likeCountElement.style.transform = 'scale(1)';
+                        }, 200);
+                    }
+                }
+            });
         
         // Animasi scroll untuk elemen
         const fadeElements = document.querySelectorAll('.fade-in');

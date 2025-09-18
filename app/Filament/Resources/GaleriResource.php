@@ -23,30 +23,35 @@ class GaleriResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('category')
-                    ->options([
-                        'performance' => 'Performance',
-                        'behind_the_scene' => 'Behind The Scene',
-                        'event' => 'Event',
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\Select::make('category')
+                            ->options([
+                                'performance' => 'Performance',
+                                'behind_the_scene' => 'Behind The Scene',
+                                'event' => 'Event',
+                            ])
+                            ->nullable(),
+                        Forms\Components\Textarea::make('description')
+                            ->maxLength(65535),
+                        Forms\Components\FileUpload::make('image')
+                            ->image()
+                            ->directory('galeri')
+                            ->imageResizeTargetWidth(1920)
+                            ->imageResizeTargetHeight(1080)
+                            ->imageResizeMode('contain')
+                            ->maxSize(20240),
+                        Forms\Components\TextInput::make('video_url')
+                            ->url()
+                            ->maxLength(255),
+                        Forms\Components\Toggle::make('active')
+                            ->default(true),
                     ])
-                    ->nullable(),
-                Forms\Components\Textarea::make('description')
-                    ->maxLength(65535),
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->directory('galeri')
-                    ->imageResizeTargetWidth(1920)
-                    ->imageResizeTargetHeight(1080)
-                    ->imageResizeMode('contain')
-                    ->maxSize(20240),
-                Forms\Components\TextInput::make('video_url')
-                    ->url()
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('active')
-                    ->default(true),
+                    ->columns(1)
+                    ->columnSpan('full'),
             ]);
     }
 
@@ -54,20 +59,20 @@ class GaleriResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('category')->sortable()->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
-                Tables\Columns\BooleanColumn::make('active')->sortable(),
+                Tables\Columns\TextColumn::make('title')->sortable()->searchable()->label('Judul')->toggleable(),
+                Tables\Columns\TextColumn::make('category')->sortable()->searchable()->label('Kategori')->toggleable(),
+                Tables\Columns\ImageColumn::make('image')->label('Gambar'),
+                Tables\Columns\BooleanColumn::make('active')->sortable()->label('Aktif')->toggleable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->icon('heroicon-o-pencil')->label('Edit'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()->label('Delete Selected'),
                 ]),
             ]);
     }
