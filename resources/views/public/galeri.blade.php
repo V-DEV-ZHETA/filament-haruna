@@ -6,8 +6,24 @@
     <title>Galeri - Komunitas Dance Cover Haruna</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        /* Smooth scrolling untuk seluruh halaman */
+        /* CSS Variables untuk konsistensi warna dan efek */
+        :root {
+            --primary-color: #ff6b81;
+            --secondary-color: #c7d8f9;
+            --text-dark: #333;
+            --text-medium: #555;
+            --text-light: #666;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --transition-speed: 0.3s;
+        }
+
+        /* Global Styles */
         html {
             scroll-behavior: smooth;
         }
@@ -20,7 +36,7 @@
             overflow-x: hidden;
         }
 
-        /* Animated background */
+        /* Animated Background */
         body::before {
             content: "";
             position: fixed;
@@ -39,14 +55,14 @@
             100% { transform: translate(40px, 40px); }
         }
 
-        /* Efek glassmorphism futuristik */
+        /* Glassmorphism Effect */
         .glass {
-            background: rgba(255, 255, 255, 0.25);
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
             position: relative;
             overflow: hidden;
         }
@@ -72,10 +88,11 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            border: 1px solid var(--glass-border);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
         }
 
+        /* Navigation */
         nav {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
@@ -95,13 +112,13 @@
             margin: 0;
             list-style: none;
             font-weight: 700;
-            color: #333;
+            color: var(--text-dark);
         }
 
         nav ul li a {
-            color: #333;
+            color: var(--text-dark);
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
             padding: 0.5rem 1rem;
             border-radius: 10px;
             position: relative;
@@ -114,12 +131,12 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #ff6b81, #c7d8f9);
-            transition: width 0.3s ease;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width var(--transition-speed) ease;
         }
 
         nav ul li a:hover {
-            color: #ff6b81;
+            color: var(--primary-color);
             background: rgba(255, 107, 129, 0.1);
         }
 
@@ -127,7 +144,7 @@
             width: 100%;
         }
 
-        /* Styling khusus untuk Galeri */
+        /* Gallery Section */
         .gallery-section {
             background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(10px);
@@ -136,7 +153,7 @@
             border-radius: 20px;
             margin: 20px;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            box-shadow: var(--glass-shadow);
             position: relative;
             overflow: hidden;
         }
@@ -153,6 +170,11 @@
             animation: rotate 50s linear infinite reverse;
         }
 
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         .gallery-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -164,7 +186,7 @@
         .gallery-title {
             font-size: 2.5rem;
             font-weight: 800;
-            color: #ff6b81;
+            color: var(--primary-color);
             text-align: center;
             margin-bottom: 40px;
             position: relative;
@@ -178,10 +200,11 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: linear-gradient(90deg, #ff6b81, #c7d8f9);
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             border-radius: 2px;
         }
 
+        /* Filter Buttons */
         .filter-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -195,11 +218,11 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #555;
+            color: var(--text-medium);
             padding: 8px 20px;
             border-radius: 30px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -225,16 +248,17 @@
 
         .filter-btn:hover {
             background: rgba(255, 107, 129, 0.2);
-            color: #ff6b81;
+            color: var(--primary-color);
             transform: translateY(-2px);
         }
 
         .filter-btn.active {
             background: rgba(255, 107, 129, 0.7);
-            color: white;
+            color: var(--white);
             border-color: rgba(255, 255, 255, 0.5);
         }
 
+        /* Gallery Grid */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -249,7 +273,7 @@
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             overflow: hidden;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            box-shadow: var(--glass-shadow);
             transition: all 0.5s ease;
             transform-style: preserve-3d;
             position: relative;
@@ -277,6 +301,7 @@
             box-shadow: 0 20px 40px 0 rgba(31, 38, 135, 0.25);
         }
 
+        /* Gallery Image */
         .gallery-image-container {
             position: relative;
             width: 100%;
@@ -304,7 +329,7 @@
             height: 100%;
             background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity var(--transition-speed) ease;
             display: flex;
             align-items: flex-end;
             padding: 15px;
@@ -318,12 +343,13 @@
             display: inline-block;
             padding: 5px 20px;
             background: linear-gradient(90deg, rgba(255, 107, 129, 0.8), rgba(199, 216, 249, 0.8));
-            color: white;
+            color: var(--white);
             border-radius: 15px;
             font-size: 0.8rem;
             font-weight: 600;
         }
 
+        /* Gallery Content */
         .gallery-content {
             padding: 20px;
         }
@@ -331,12 +357,12 @@
         .gallery-title-text {
             font-size: 1.2rem;
             font-weight: 700;
-            color: #333;
+            color: var(--text-dark);
             margin-bottom: 10px;
         }
 
         .gallery-description {
-            color: #555;
+            color: var(--text-medium);
             font-size: 0.9rem;
             margin-bottom: 15px;
         }
@@ -348,20 +374,20 @@
         }
 
         .gallery-date {
-            color: #666;
+            color: var(--text-light);
             font-size: 0.8rem;
         }
 
         .gallery-view-btn {
             background: rgba(255, 107, 129, 0.2);
-            color: #ff6b81;
+            color: var(--primary-color);
             width: 30px;
             height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
         }
 
         .gallery-view-btn:hover {
@@ -369,18 +395,19 @@
             transform: scale(1.1);
         }
 
+        /* Footer */
         footer {
             background: rgba(255, 107, 129, 0.8);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            color: white;
+            color: var(--white);
             padding: 2rem 0;
             text-align: center;
             font-weight: 600;
             border-top: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        /* Lightbox styling */
+        /* Lightbox */
         .lightbox {
             position: fixed;
             top: 0;
@@ -393,7 +420,7 @@
             z-index: 1000;
             display: none;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity var(--transition-speed) ease;
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -417,10 +444,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--white);
             font-size: 1.2rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
             z-index: 1001;
         }
 
@@ -450,7 +477,7 @@
             left: 0;
             width: 100%;
             background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            color: white;
+            color: var(--white);
             padding: 20px;
             box-sizing: border-box;
         }
@@ -466,7 +493,7 @@
             opacity: 0.8;
         }
 
-        /* Tombol navigasi lightbox */
+        /* Lightbox Navigation */
         .lightbox-prev, .lightbox-next {
             position: absolute;
             top: 50%;
@@ -474,7 +501,7 @@
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
-            color: white;
+            color: var(--white);
             border: none;
             width: 40px;
             height: 40px;
@@ -484,7 +511,7 @@
             justify-content: center;
             cursor: pointer;
             z-index: 1002;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
             font-size: 1rem;
         }
 
@@ -501,7 +528,35 @@
             transform: translateY(-50%) scale(1.1);
         }
 
-        /* Animasi untuk elemen saat scroll */
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 107, 129, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all var(--transition-speed) ease;
+            box-shadow: 0 4px 15px 0 rgba(255, 107, 129, 0.2);
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 71, 87, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(255, 107, 129, 0.3);
+        }
+
+        /* Animations */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -513,63 +568,27 @@
             transform: translateY(0);
         }
 
-        /* Responsive adjustments */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
+            .gallery-title {
+                font-size: 2rem;
             }
-
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-
-            .medsos-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-
+            
             .gallery-grid {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
-
-            .platform-grid {
-                gap: 20px;
+            
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
             }
-
-            .platform-icon {
-                width: 60px;
-                height: 60px;
+            
+            nav ul li a {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.9rem;
             }
-        }
-
-        /* Back to home button */
-        .back-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 107, 129, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 15px;
-            border-radius: 25px;
-            font-weight: 600;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px 0 rgba(255, 107, 129, 0.2);
-            z-index: 100;
-        }
-
-        .back-btn:hover {
-            background: rgba(255, 71, 87, 0.9);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px 0 rgba(255, 107, 129, 0.3);
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -614,7 +633,7 @@
                         <img src="{{ asset('storage/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="gallery-image" />
                         @else
                         <div class="w-full h-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
-                            <i class="fas fa-image text-4x"></i>
+                            <i class="fas fa-image text-4xl"></i>
                         </div>
                         @endif
                     </div>

@@ -12,5 +12,8 @@ Route::middleware([TrackTrafficMiddleware::class])->group(function () {
     Route::get('/comments', [PublicController::class, 'commentsPage'])->name('comments.index');
 });
 
+Route::get('/comment', function () {
+    return redirect('/comments');
+});
 Route::post('/comment', [PublicController::class, 'storeComment'])->name('comment.store');
 Route::post('/comments/{id}/like', [PublicController::class, 'likeComment'])->name('comment.like');

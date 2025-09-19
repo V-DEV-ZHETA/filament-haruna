@@ -35,11 +35,41 @@
             opacity: 0.4;
             animation: backgroundMove 20s linear infinite;
         }
-        
-        @keyframes backgroundMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(40px, 40px); }
+
+        /* Floating cute elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
         }
+
+        .floating-element {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 15s linear infinite;
+            opacity: 0.3;
+        }
+
+        .floating-element:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 20%; right: 15%; animation-delay: 2s; }
+        .floating-element:nth-child(3) { top: 40%; left: 20%; animation-delay: 4s; }
+        .floating-element:nth-child(4) { top: 60%; right: 10%; animation-delay: 6s; }
+        .floating-element:nth-child(5) { top: 80%; left: 30%; animation-delay: 8s; }
+        .floating-element:nth-child(6) { top: 30%; right: 25%; animation-delay: 10s; }
+        .floating-element:nth-child(7) { top: 50%; left: 5%; animation-delay: 12s; }
+        .floating-element:nth-child(8) { top: 70%; right: 5%; animation-delay: 14s; }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+
         
         /* Efek glassmorphism futuristik */
         .glass {
@@ -135,6 +165,54 @@
             z-index: 0;
         }
         
+        /* Elemen imut untuk Hero Section */
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .floating-element {
+            position: absolute;
+            opacity: 0.7;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            font-size: 2rem;
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            font-size: 1.5rem;
+            animation-delay: 1s;
+        }
+        
+        .floating-element:nth-child(3) {
+            bottom: 20%;
+            left: 15%;
+            font-size: 1.8rem;
+            animation-delay: 2s;
+        }
+        
+        .floating-element:nth-child(4) {
+            bottom: 15%;
+            right: 10%;
+            font-size: 1.7rem;
+            animation-delay: 3s;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
         
         @keyframes particleFloat {
             0% { transform: translate(0, 0) rotate(0deg); }
@@ -167,6 +245,10 @@
             animation: glow 2s ease-in-out infinite alternate;
         }
         
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff6b81, 0 0 20px #ff6b81; }
+            to { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 25px #ff6b81, 0 0 30px #ff6b81; }
+        }
         
         .hero-subtitle {
             font-weight: 600;
@@ -188,6 +270,7 @@
             padding: 0.75rem 2rem;
             border-radius: 9999px;
             font-weight: 700;
+            width: 100%;
             color: white;
             transition: all 0.3s ease;
             text-decoration: none;
@@ -199,6 +282,11 @@
             animation: pulse 2s infinite;
         }
         
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 129, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 129, 0); }
+        }
         
         .btn-primary:hover {
             background: rgba(255, 71, 87, 0.9);
@@ -269,6 +357,32 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
             overflow: hidden;
+        }
+        
+        /* Elemen imut untuk Deskripsi Section */
+        .deskripsi-section::before {
+            content: "✨";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+            animation: sparkle 3s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        .deskripsi-section::after {
+            content: "💖";
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2rem;
+            animation: sparkle 3s ease-in-out infinite 1.5s;
+            z-index: 1;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
         
         .deskripsi-title {
@@ -360,6 +474,38 @@
             gap: 20px;
             margin-top: 40px;
             justify-content: center;
+        }
+        
+        /* Kutipan imut untuk Deskripsi Section */
+        .quote-box {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+            position: relative;
+            font-style: italic;
+            color: #666;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .quote-box::before {
+            content: """;
+            position: absolute;
+            top: -15px;
+            left: 10px;
+            font-size: 3rem;
+            color: #ff6b81;
+            opacity: 0.3;
+        }
+        
+        .quote-box::after {
+            content: """;
+            position: absolute;
+            bottom: -30px;
+            right: 10px;
+            font-size: 3rem;
+            color: #ff6b81;
+            opacity: 0.3;
         }
         
         section {
@@ -486,16 +632,35 @@
             overflow: hidden;
         }
         
+        /* Elemen imut untuk Member Section */
         .member-section::before {
-            content: "";
+            content: "🌟";
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(199, 216, 249, 0.1) 0%, transparent 70%);
-            z-index: 0;
-            animation: rotate 40s linear infinite reverse;
+            top: 15px;
+            right: 30px;
+            font-size: 2rem;
+            animation: twinkle 4s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        .member-section::after {
+            content: "💃";
+            position: absolute;
+            bottom: 15px;
+            left: 30px;
+            font-size: 2rem;
+            animation: bounce 2s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(10deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
         .member-container {
@@ -557,6 +722,24 @@
             display: flex;
             flex-direction: column;
             position: relative;
+        }
+        
+        /* Badge imut untuk member card */
+        .member-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff6b81, #c7d8f9);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(255, 107, 129, 0.3);
         }
         
         .member-card::before {
@@ -704,16 +887,31 @@
             overflow: hidden;
         }
         
+        /* Elemen imut untuk Berita Section */
         .berita-section::before {
-            content: "";
+            content: "📰";
             position: absolute;
-            bottom: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 107, 129, 0.1) 0%, transparent 70%);
-            z-index: 0;
-            animation: rotate 35s linear infinite;
+            top: 15px;
+            left: 30px;
+            font-size: 2rem;
+            animation: float 4s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        .berita-section::after {
+            content: "🔔";
+            position: absolute;
+            bottom: 15px;
+            right: 30px;
+            font-size: 2rem;
+            animation: shake 3s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
         }
         
         .berita-container {
@@ -764,6 +962,21 @@
             display: flex;
             flex-direction: column;
             position: relative;
+        }
+        
+        /* Tag imut untuk berita card */
+        .berita-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 107, 129, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(255, 107, 129, 0.3);
         }
         
         .berita-card::before {
@@ -885,16 +1098,39 @@
             overflow: hidden;
         }
         
+        /* Elemen imut untuk Kontak Section */
         .kontak-section::before {
-            content: "";
+            content: "💌";
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
-            z-index: 0;
-            animation: rotate 45s linear infinite reverse;
+            top: 15px;
+            left: 30px;
+            font-size: 2rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        .kontak-section::after {
+            content: "📞";
+            position: absolute;
+            bottom: 15px;
+            right: 30px;
+            font-size: 2rem;
+            animation: ring 3s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        @keyframes ring {
+            0%, 100% { transform: rotate(0deg); }
+            10% { transform: rotate(10deg); }
+            20% { transform: rotate(-10deg); }
+            30% { transform: rotate(10deg); }
+            40% { transform: rotate(-10deg); }
+            50% { transform: rotate(0deg); }
         }
         
         .kontak-container {
@@ -1067,7 +1303,6 @@
         
         .form-group {
             margin-bottom: 20px;
-
         }
         
         .form-group label {
@@ -1199,6 +1434,40 @@
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
         
+        /* Elemen imut untuk Medsos Section */
+        .medsos-section::before {
+            content: "📱";
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            font-size: 2rem;
+            animation: vibrate 2s linear infinite;
+            z-index: 1;
+        }
+        
+        .medsos-section::after {
+            content: "🌐";
+            position: absolute;
+            bottom: 15px;
+            right: 30px;
+            font-size: 2rem;
+            animation: rotate 10s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes vibrate {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            50% { transform: translateX(0); }
+            75% { transform: translateX(2px); }
+            100% { transform: translateX(0); }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
         .medsos-section::before {
             content: "";
             position: absolute;
@@ -1289,9 +1558,27 @@
             box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.15);
             transition: all 0.5s ease;
             position: relative;
-            height: 100%;
+            height: 100%; /* Set fixed height to reduce card length */
             display: flex;
             flex-direction: column;
+        }
+        
+        /* Badge imut untuk medsos card */
+        .medsos-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff6b81, #c7d8f9);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(255, 107, 129, 0.3);
         }
         
         .medsos-card::before {
@@ -1338,7 +1625,7 @@
         }
         
         .medsos-icon {
-            font-size: 4rem;
+            font-size: 5rem;
             position: relative;
             z-index: 1;
             transition: transform 0.5s ease;
@@ -1381,9 +1668,8 @@
         
         .medsos-platform {
             font-size: 1.8rem;
-            font-weight: 700;
+            font-weight: 800;
             color: #333;
-            margin-bottom: 8px;
             text-align: center;
         }
         
@@ -1502,16 +1788,30 @@
             overflow: hidden;
         }
         
+        /* Elemen imut untuk Galeri Section */
         .gallery-section::before {
-            content: "";
+            content: "📸";
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 107, 129, 0.1) 0%, transparent 70%);
-            z-index: 0;
-            animation: rotate 50s linear infinite reverse;
+            top: 15px;
+            left: 30px;
+            font-size: 2rem;
+            animation: flash 4s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        .gallery-section::after {
+            content: "🖼️";
+            position: absolute;
+            bottom: 15px;
+            right: 30px;
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        @keyframes flash {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
         }
         
         .gallery-container {
@@ -1615,6 +1915,21 @@
             transition: all 0.5s ease;
             transform-style: preserve-3d;
             position: relative;
+        }
+        
+        /* Badge imut untuk gallery item */
+        .gallery-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 107, 129, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(255, 107, 129, 0.3);
         }
         
         .gallery-item::before {
@@ -1978,16 +2293,25 @@
             overflow: hidden;
         }
         
+        /* Elemen imut untuk Pesan Section */
         .pesan-section::before {
-            content: "";
+            content: "💬";
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 107, 129, 0.1) 0%, transparent 70%);
-            z-index: 0;
-            animation: rotate 30s linear infinite reverse;
+            top: 15px;
+            left: 30px;
+            font-size: 2rem;
+            animation: bounce 2s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        .pesan-section::after {
+            content: "💌";
+            position: absolute;
+            bottom: 15px;
+            right: 30px;
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+            z-index: 1;
         }
         
         .pesan-container {
@@ -2021,7 +2345,7 @@
         
         .pesan-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
         }
         
@@ -2038,6 +2362,24 @@
             height: 100%;
             display: flex;
             flex-direction: column;
+        }
+        
+        /* Badge imut untuk pesan card */
+        .pesan-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 107, 129, 0.8);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(255, 107, 129, 0.3);
         }
         
         .pesan-card::before {
@@ -2227,6 +2569,231 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Elemen imut tambahan */
+        .cute-element {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .cute-element.top-left {
+            top: 10px;
+            left: 10px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .cute-element.top-right {
+            top: 10px;
+            right: 10px;
+            animation: float 5s ease-in-out infinite 1s;
+        }
+
+        .cute-element.bottom-left {
+            bottom: 10px;
+            left: 10px;
+            animation: float 4.5s ease-in-out infinite 0.5s;
+        }
+
+        .cute-element.bottom-right {
+            bottom: 10px;
+            right: 10px;
+            animation: float 5.5s ease-in-out infinite 1.5s;
+        }
+
+        /* Tooltip imut */
+        .cute-tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .cute-tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: rgba(255, 107, 129, 0.9);
+            color: white;
+            text-align: center;
+            border-radius: 15px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(255, 107, 129, 0.3);
+        }
+
+        .cute-tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: rgba(255, 107, 129, 0.9) transparent transparent transparent;
+        }
+
+        .cute-tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Confetti animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #ff6b81;
+            position: absolute;
+            animation: confetti-fall 3s linear 1;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Kutipan imut */
+        .cute-quote {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px 0;
+            position: relative;
+            font-style: italic;
+            color: #666;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .cute-quote::before {
+            content: """;
+            position: absolute;
+            top: -15px;
+            left: 10px;
+            font-size: 3rem;
+            color: #ff6b81;
+            opacity: 0.3;
+        }
+
+        .cute-quote::after {
+            content: """;
+            position: absolute;
+            bottom: -30px;
+            right: 10px;
+            font-size: 3rem;
+            color: #ff6b81;
+            opacity: 0.3;
+        }
+
+        /* Pop-up imut */
+        .cute-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 300px;
+            transform: translateX(400px);
+            transition: transform 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cute-popup.show {
+            transform: translateX(0);
+        }
+
+        .cute-popup .popup-icon {
+            font-size: 2rem;
+            color: #ff6b81;
+        }
+
+        .cute-popup .popup-content {
+            flex: 1;
+        }
+
+        .cute-popup .popup-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .cute-popup .popup-message {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .cute-popup .popup-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .cute-popup .popup-close:hover {
+            color: #ff6b81;
+        }
+
+        /* Elemen surprise */
+        .surprise-element {
+            position: absolute;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        .surprise-element:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .surprise-content {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .surprise-element:hover .surprise-content {
+            opacity: 1;
+            visibility: visible;
+            top: -60px;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;900&display=swap" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -2235,10 +2802,26 @@
 
 <!-- Hero Section -->
 <section class="hero-bg" id="beranda">
+    <!-- Elemen imut untuk Hero Section -->
+    <div class="floating-elements">
+        <div class="floating-element">✨</div>
+        <div class="floating-element">💖</div>
+        <div class="floating-element">🌟</div>
+        <div class="floating-element">💃</div>
+    </div>
+    
     <div class="hero-content">
         <h1 class="hero-title">Haruna Dance Cover <span style="color:#fff9c4;">✨</span></h1>
         <p class="hero-subtitle">Hari Demi Hari Bersama Haruna!!</p>
         <a href="#members" class="btn-primary">Lihat Member</a>
+    </div>
+    
+    <!-- Elemen surprise di Hero Section -->
+    <div class="surprise-element" style="top: 20px; right: 20px;">
+        🎁
+        <div class="surprise-content">
+            <p>Terima kasih sudah berkunjung! Jangan lupa follow kami di media sosial ya!</p>
+        </div>
     </div>
 </section>
 
@@ -2306,6 +2889,11 @@
         <div class="deskripsi-content">
             <div class="deskripsi-text">
                 <p>Haruna adalah komunitas dance cover yang berbasis di Samarinda, Kalimantan Timur, dengan fokus utama pada penampilan dan budaya idol Jepang (J-Pop Idol). Didirikan oleh sekelompok remaja kreatif dan energik, Haruna hadir sebagai wadah untuk mengekspresikan kecintaan terhadap dunia peridolan, menari, dan berkarya di atas panggung. Dengan semangat "Hari demi hari bersama Haruna", komunitas ini aktif mengadakan latihan rutin, mengikuti festival cosplay dan event budaya Jepang, serta memproduksi berbagai konten seperti dance cover, video kreatif, hingga original project. Haruna dance cover Samarinda resmi debut pada bulan Agustus 2023 melalui penampilan perdana mereka di sebuah event komunitas budaya Jepang. Mengusung konsep idol ala Jepang</p>
+                
+                <!-- Kutipan imut -->
+                <div class="cute-quote">
+                    "Dance is the hidden language of the soul. Setiap gerakan adalah cerita, dan setiap penampilan adalah perjalanan."
+                </div>
             </div>
             <div class="deskripsi-image">
                 <img src="https://ik.imagekit.io/hdxn6kcob/IMG_2452.gif?updatedAt=1758117079357" alt="Haruna Dance Cover Performance">
@@ -2326,6 +2914,7 @@
             <div class="member-grid">
                 @foreach($members as $member)
                 <a href="{{ route('member.show', $member->id) }}" class="member-card">
+                    <!-- Badge imut untuk member card -->
                     <div class="member-image-container">
                         @if($member->foto)
                         <img src="{{ asset('storage/' . $member->foto) }}" alt="{{ $member->nama }}" class="member-image" />
@@ -2346,10 +2935,11 @@
     <section id="medsos" class="medsos-section fade-in">
         <div class="medsos-container">
             <h2 class="medsos-title">Media Sosial</h2>
-            <p class="medsos-subtitle">Ikuti kami di berbagai platform media sosial untuk mendapatkan update terbaru tentang komunitas dance cover Haruna!</p>
+            <p class="medsos-subtitle">Ikuti kami di berbagai platform media sosial untuk mendapatkan update terbaru tentang haruna dance cover!</p>
             <div class="medsos-grid">
                 @foreach($medsos as $medsos_item)
                 <div class="medsos-card" data-platform="{{ $medsos_item->platform }}" data-username="{{ $medsos_item->username }}">
+                    <!-- Badge imut untuk medsos card -->
                     <div class="medsos-icon-wrapper">
                         @if($medsos_item->platform == 'Instagram')
                         <i class="fab fa-instagram medsos-icon instagram-icon"></i>
@@ -2406,6 +2996,11 @@
                 </div>
                 @endforeach
             </div>
+            
+            <!-- Kutipan imut untuk Medsos Section -->
+            <div class="cute-quote">
+                "Follow us, like us, love us! Setiap dukunganmu adalah semangat bagi kami untuk terus berkarya! 💕"
+            </div>
         </div>
     </section>
 
@@ -2423,6 +3018,8 @@
             <div class="gallery-grid">
                 @foreach($galeris->take(8) as $galeri)
                 <div class="gallery-item" data-category="{{ $galeri->category ?? 'performance' }}">
+                    <!-- Badge imut untuk gallery item -->
+                    <div class="gallery-badge">📷</div>
                     <div class="gallery-image-container">
                         @if($galeri->image)
                         <img src="{{ asset('storage/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="gallery-image" />
@@ -2459,6 +3056,8 @@
             <div class="berita-grid">
                 @foreach($beritas as $berita)
                 <div class="berita-card">
+                    <!-- Tag imut untuk berita card -->
+                    <div class="berita-tag">Baru!</div>
                     <div class="berita-image-container">
                         @if($berita->image)
                         <img src="{{ asset('storage/' . $berita->image) }}" alt="{{ $berita->title }}" class="berita-image" />
@@ -2478,6 +3077,11 @@
                     </div>
                 </div>
                 @endforeach
+            </div>
+            
+            <!-- Kutipan imut untuk Berita Section -->
+            <div class="cute-quote">
+                "Setiap berita adalah cerita, setiap cerita adalah inspirasi. Tetap update dengan kami! 📰✨"
             </div>
         </div>
     </section>
@@ -2513,8 +3117,10 @@
 
             @if(count($comments) > 0)
             <div class="pesan-grid">
-                @foreach($comments->take(6) as $comment)
+                @foreach($comments->take(4) as $comment)
                 <div class="pesan-card">
+                    <!-- Badge imut untuk pesan card -->
+                    <div class="pesan-badge">💬</div>
                     <div class="pesan-header">
                         <div class="pesan-avatar">{{ strtoupper(substr($comment->name, 0, 1)) }}</div>
                         <div class="pesan-info">
@@ -2536,7 +3142,7 @@
             @if(isset($commentsCount) && $commentsCount > 6)
             <div class="text-center mt-8" style="display: flex; justify-content: center; margin-top: 2rem;">
                 <a href="{{ route('comments.index') }}" class="btn-primary" style="padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 700; box-shadow: 0 8px 32px 0 rgba(255, 107, 129, 0.2);">
-                    Lihat Semua Pesan
+                    Kolom Komentar
                 </a>
             </div>
             @endif
@@ -2546,6 +3152,11 @@
                 <p>Belum ada pesan dari fans. Jadilah yang pertama mengirim pesan untuk Haruna!</p>
             </div>
             @endif
+            
+            <!-- Kutipan imut untuk Pesan Section -->
+            <div class="cute-quote">
+                "Setiap pesan dari kalian adalah energi positif bagi kami. Terima kasih atas dukungannya! 💕"
+            </div>
         </div>
     </section>
 
@@ -2643,6 +3254,11 @@
                     </form>
                 </div>
             </div>
+            
+            <!-- Kutipan imut untuk Kontak Section -->
+            <div class="cute-quote">
+                "Jangan ragu untuk menghubungi kami. Setiap saran dan masukan Anda sangat berarti bagi kami! 💌"
+            </div>
         </div>
     </section>
 
@@ -2713,6 +3329,16 @@
     </div>
 </div>
 
+<!-- Pop-up imut -->
+<div class="cute-popup" id="cute-popup">
+    <div class="popup-icon">🎉</div>
+    <div class="popup-content">
+        <div class="popup-title">Selamat Datang!</div>
+        <div class="popup-message">Terima kasih sudah mengunjungi website Haruna Dance Cover!</div>
+    </div>
+    <button class="popup-close" id="popup-close">&times;</button>
+</div>
+
 <script>
     // Initialize Laravel Echo with Pusher
     window.Echo = new Echo({
@@ -2723,6 +3349,48 @@
     });
 
     document.addEventListener('DOMContentLoaded', function() {
+        // Show cute popup on page load
+        setTimeout(function() {
+            document.getElementById('cute-popup').classList.add('show');
+        }, 2000);
+        
+        // Close cute popup
+        document.getElementById('popup-close').addEventListener('click', function() {
+            document.getElementById('cute-popup').classList.remove('show');
+        });
+        
+        // Create confetti effect on certain actions
+        function createConfetti() {
+            const colors = ['#ff6b81', '#c7d8f9', '#ff9ff3', '#54a0ff', '#5f27cd'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.opacity = Math.random() * 0.7 + 0.3;
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                
+                document.body.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+        
+        // Add confetti effect when clicking on certain elements
+        const confettiTriggers = document.querySelectorAll('.btn-primary, .medsos-link, .gallery-view-btn');
+        confettiTriggers.forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                createConfetti();
+            });
+        });
+        
         // Fungsi untuk mengambil data Instagram
         async function getInstagramData(username) {
             try {
@@ -3129,72 +3797,10 @@
                         // Clear form
                         commentForm.reset();
 
-                        // Update comment list
-                        const pesanGrid = document.querySelector('.pesan-grid');
-                        if (pesanGrid) {
-                            const newComment = document.createElement('div');
-                            newComment.className = 'pesan-card';
-                            newComment.innerHTML = `
-                                <div class="pesan-header">
-                                    <div class="pesan-avatar">${data.comment.name.charAt(0).toUpperCase()}</div>
-                                    <div class="pesan-info">
-                                        <div class="pesan-name">${data.comment.name}</div>
-                                        <div class="pesan-date">${new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
-                                    </div>
-                                </div>
-                                <div class="pesan-content">
-                                    <div class="pesan-message">${data.comment.message}</div>
-                                    <div class="pesan-footer">
-                                        <button class="pesan-like-btn" data-id="${data.comment.id}">
-                                            <i class="far fa-heart"></i> <span class="like-count">0</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            `;
-                            pesanGrid.insertBefore(newComment, pesanGrid.firstChild);
-
-                            // Add like functionality to new comment
-                            const newLikeBtn = newComment.querySelector('.pesan-like-btn');
-                            newLikeBtn.addEventListener('click', function() {
-                                const commentId = this.getAttribute('data-id');
-                                const likeCountElement = this.querySelector('.like-count');
-                                const heartIcon = this.querySelector('i');
-
-                                if (this.classList.contains('liked')) {
-                                    this.classList.remove('liked');
-                                    heartIcon.classList.remove('fas');
-                                    heartIcon.classList.add('far');
-                                    const currentCount = parseInt(likeCountElement.textContent);
-                                    likeCountElement.textContent = currentCount - 1;
-                                } else {
-                                    this.classList.add('liked');
-                                    heartIcon.classList.remove('far');
-                                    heartIcon.classList.add('fas');
-                                    const currentCount = parseInt(likeCountElement.textContent);
-                                    likeCountElement.textContent = currentCount + 1;
-                                }
-
-                                fetch(`/comments/${commentId}/like`, {
-                                    method: 'POST',
-                                    headers: {
-                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                                        'Content-Type': 'application/json'
-                                    }
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                    console.log('Like updated:', data);
-                                })
-                                .catch(error => {
-                                    console.error('Error updating like:', error);
-                                });
-                            });
-                        }
-
-                        // Remove success message after 5 seconds
+                        // Refresh the page after successful submission
                         setTimeout(() => {
-                            successDiv.remove();
-                        }, 5000);
+                            location.reload();
+                        }, 1000); // Refresh after 1 second to show success message briefly
                     } else {
                         // Show error message
                         const errorDiv = document.createElement('div');
