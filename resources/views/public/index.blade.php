@@ -16,7 +16,7 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: white;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
@@ -242,7 +242,7 @@
             font-size: 3.5rem;
             margin-bottom: 0.5rem;
             color: white;
-            animation: glow 2s ease-in-out infinite alternate;
+            text-shadow: #000;
         }
         
         @keyframes glow {
@@ -2813,15 +2813,6 @@
     <div class="hero-content">
         <h1 class="hero-title">Haruna Dance Cover <span style="color:#fff9c4;">✨</span></h1>
         <p class="hero-subtitle">Hari Demi Hari Bersama Haruna!!</p>
-        <a href="#members" class="btn-primary">Lihat Member</a>
-    </div>
-    
-    <!-- Elemen surprise di Hero Section -->
-    <div class="surprise-element" style="top: 20px; right: 20px;">
-        🎁
-        <div class="surprise-content">
-            <p>Terima kasih sudah berkunjung! Jangan lupa follow kami di media sosial ya!</p>
-        </div>
     </div>
 </section>
 
@@ -3334,7 +3325,6 @@
     <div class="popup-icon">🎉</div>
     <div class="popup-content">
         <div class="popup-title">Selamat Datang!</div>
-        <div class="popup-message">Terima kasih sudah mengunjungi website Haruna Dance Cover!</div>
     </div>
     <button class="popup-close" id="popup-close">&times;</button>
 </div>
@@ -3376,14 +3366,12 @@
                 
                 document.body.appendChild(confetti);
                 
-                // Remove confetti after animation
                 setTimeout(() => {
                     confetti.remove();
                 }, 5000);
             }
         }
         
-        // Add confetti effect when clicking on certain elements
         const confettiTriggers = document.querySelectorAll('.btn-primary, .medsos-link, .gallery-view-btn');
         confettiTriggers.forEach(trigger => {
             trigger.addEventListener('click', function() {
@@ -3391,10 +3379,8 @@
             });
         });
         
-        // Fungsi untuk mengambil data Instagram
         async function getInstagramData(username) {
             try {
-                // Menggunakan API alternatif untuk Instagram
                 const response = await fetch(`https://www.instagram.com/${username}/?__a=1&__d=dis`);
                 
                 if (!response.ok) {
@@ -3403,7 +3389,6 @@
                 
                 const data = await response.json();
                 
-                // Ekstrak data dari respons Instagram
                 const userData = data.graphql.user;
                 
                 return {
@@ -3413,17 +3398,14 @@
             } catch (error) {
                 console.error('Error fetching Instagram data:', error);
                 return {
-                    followers: '614', // Nilai default jika gagal
-                    posts: '53'      // Nilai default jika gagal
+                    followers: '614', 
+                    posts: '53'      
                 };
             }
         }
         
-        // Fungsi untuk mengambil data YouTube
         async function getYoutubeData(channelId) {
             try {
-                // Menggunakan YouTube Data API v3
-                // Ganti API_KEY dengan API key Anda sendiri
                 const API_KEY = 'AIzaSyDYVj5s7m0gX5Rr7p8W9x7Q6W5eR4tY3vU';
                 const response = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${channelId}&key=${API_KEY}`);
                 

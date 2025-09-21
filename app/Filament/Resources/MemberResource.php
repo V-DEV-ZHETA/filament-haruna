@@ -46,7 +46,14 @@ class MemberResource extends Resource
                         Forms\Components\KeyValue::make('media_sosial')
                             ->label('Media Sosial')
                             ->keyLabel('Platform')
-                            ->valueLabel('URL'),
+                            ->valueLabel('URL')
+                            ->addActionLabel('Tambah Platform')
+                            ->rules([
+                                'values.*' => 'nullable|url:https,http',
+                            ])
+                            ->validationMessages([
+                                'values.*.url' => 'URL harus dimulai dengan http:// atau https://',
+                            ]),
                     ])
                     ->columns(1)
                     ->columnSpan('full'),

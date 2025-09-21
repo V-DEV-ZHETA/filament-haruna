@@ -597,18 +597,6 @@
     <i class="fas fa-arrow-left"></i> Kembali ke Beranda
 </a>
 
-<header>
-    <nav>
-        <ul>
-            <li><a href="{{ route('public.index') }}#beranda">Beranda</a></li>
-            <li><a href="{{ route('public.index') }}#members">Member</a></li>
-            <li><a href="{{ route('public.index') }}#medsos">Medsos</a></li>
-            <li><a href="#galeri">Galeri</a></li>
-            <li><a href="{{ route('public.index') }}#berita">Berita</a></li>
-            <li><a href="{{ route('public.index') }}#kontak">Kontak</a></li>
-        </ul>
-    </nav>
-</header>
 
 <main class="container mx-auto px-4 py-8 space-y-16">
 
@@ -665,7 +653,6 @@
     </div>
 </footer>
 
-<!-- Lightbox untuk preview gambar -->
 <div class="lightbox" id="lightbox">
     <div class="lightbox-close">
         <i class="fas fa-times"></i>
@@ -683,16 +670,12 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Gallery functionality
-        // Filter functionality
         const filterButtons = document.querySelectorAll('.filter-btn');
         const galleryItems = document.querySelectorAll('.gallery-item');
 
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Remove active class from all buttons
                 filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
                 button.classList.add('active');
 
                 const filter = button.getAttribute('data-filter');
@@ -700,7 +683,6 @@
                 galleryItems.forEach(item => {
                     if (filter === 'all' || item.getAttribute('data-category') === filter) {
                         item.style.display = 'block';
-                        // Add animation
                         setTimeout(() => {
                             item.style.opacity = '1';
                             item.style.transform = 'scale(1)';
