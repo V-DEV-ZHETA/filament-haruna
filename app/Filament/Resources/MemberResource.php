@@ -41,16 +41,15 @@ class MemberResource extends Resource
                         Forms\Components\Textarea::make('jiko')
                             ->maxLength(65535),
                         Forms\Components\FileUpload::make('foto')
+                            ->nullable()
                             ->image()
+                            ->maxSize(2048)
                             ->directory('members'),
                         Forms\Components\KeyValue::make('media_sosial')
                             ->label('Media Sosial')
                             ->keyLabel('Platform')
                             ->valueLabel('URL')
                             ->addActionLabel('Tambah Platform')
-                            ->rules([
-                                'values.*' => 'nullable|url:https,http',
-                            ])
                             ->validationMessages([
                                 'values.*.url' => 'URL harus dimulai dengan http:// atau https://',
                             ]),

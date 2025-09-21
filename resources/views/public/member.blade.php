@@ -212,7 +212,14 @@
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .social-icons a {
@@ -230,6 +237,14 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             cursor: pointer;
             text-decoration: none;
+            position: relative;
+        }
+
+        .social-icons a i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .social-icons a:hover {
@@ -305,6 +320,10 @@
                 margin-right: 0;
                 margin-bottom: 0.25rem;
             }
+
+            .social-icons {
+                gap: 1rem;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;900&display=swap" rel="stylesheet">
@@ -377,21 +396,22 @@
                                 $formattedUrl = 'https://' . $url;
                             }
                         @endphp
-                        <a href="{{ $formattedUrl }}"
-                           target="_blank"
-                           title="{{ ucfirst($platform) }}"
-                           onclick="return true;"
-                           style="cursor: pointer; display: inline-block;">
-                            @if($platform == 'instagram')
-                            <i class="fab fa-instagram"></i>
-                            @elseif($platform == 'youtube')
-                            <i class="fab fa-youtube"></i>
-                            @elseif($platform == 'tiktok')
-                            <i class="fab fa-tiktok"></i>
-                            @else
-                            <i class="fas fa-globe"></i>
-                            @endif
-                        </a>
+                        <div class="social-icon-wrapper">
+                            <a href="{{ $formattedUrl }}"
+                               target="_blank"
+                               title="{{ ucfirst($platform) }}"
+                               onclick="return true;">
+                                @if($platform == 'instagram')
+                                <i class="fab fa-instagram"></i>
+                                @elseif($platform == 'youtube')
+                                <i class="fab fa-youtube"></i>
+                                @elseif($platform == 'tiktok')
+                                <i class="fab fa-tiktok"></i>
+                                @else
+                                <i class="fas fa-globe"></i>
+                                @endif
+                            </a>
+                        </div>
                         @endforeach
                     </div>
                 </div>
