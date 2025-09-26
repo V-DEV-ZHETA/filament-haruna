@@ -1,9 +1,7 @@
-# TODO: Implement Comment Section with Pagination
+# Task: Add URL form field in Kontak resource (Filament admin)
 
-## Tasks
-- [ ] Modify PublicController@index to limit comments to 6 on index page
-- [ ] Add new method commentsPage() in PublicController for dedicated comment page
-- [ ] Add route for /comments in routes/web.php
-- [ ] Update resources/views/public/index.blade.php to show only 6 comments and link to full page if >6
-- [ ] Create new view resources/views/public/comments.blade.php for wider comment column
-- [ ] Test the implementation
+## Steps:
+- [ ] Edit app/Filament/Resources/KontakResource.php: Update TextInput 'value' to conditionally use ->url() for social types (facebook, instagram, etc.), with placeholder.
+- [ ] Test: In admin panel, create/edit Kontak with social type – verify URL input, validation (accepts valid URLs, rejects invalid); non-social as text.
+- [ ] Verify frontend: New URLs display correctly in public/index.blade.php social links.
+- [ ] Update TODO: Mark completed steps.

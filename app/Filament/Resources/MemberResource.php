@@ -76,6 +76,7 @@ class MemberResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->icon('heroicon-o-pencil')->label('Edit'),
+                Tables\Actions\DeleteAction::make()->icon('heroicon-o-trash')->label('Hapus'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
