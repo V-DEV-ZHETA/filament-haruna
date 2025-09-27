@@ -424,7 +424,7 @@
         
         /* Member Section Styles */
         .member-section {
-            background: white;
+            background: white
             padding: 40px 0;
             border-radius: 16px;
             margin: 20px;
@@ -449,15 +449,15 @@
         
         .member-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(3, minmax(100px, 3fr));
             max-width: 1200px;
             margin: 0 auto 30px;
             gap: 20px;
         }
         
-        @media (min-width: 768px) {
+        @media (min-width: 900px) {
             .member-grid {
-                grid-template-columns: repeat(5, 1fr);
+                grid-template-columns: repeat(5, 3fr);
                 max-width: 1200px;
             }
         }
@@ -1342,15 +1342,19 @@
             }
             
             .medsos-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             }
             
             .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             }
             
             .pesan-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 2fr;
+            }
+
+            .berita-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             }
         }
 

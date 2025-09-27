@@ -63,6 +63,27 @@ class PublicController extends Controller
                 'pesan' => 'required|string',
             ]);
 
+            // Additional spam and length check
+            if (strlen($validated['pesan']) < 1 || strlen($validated['pesan']) > 500) {
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'pesan' => 'Pesan harus antara 10-500 karakter.',
+                ]);
+            }
+
+            // Profanity filter - customize the bad words list as needed
+            $badWords = [
+                'anjing', 'bajingan', 'bajing', 'bangsat', 'bego', 'bodoh', 'bocah', 'kampret', 'kontol', 'memek', 'pepek', 'puki', 'sialan', 'sial', 'tai', 'tolol', 'bangke', 'jancuk', 'jancok', 'joni', 'keparat', 'kntl', 'kntol', 'memek', 'ngentot', 'pepe', 'pepet', 'pukimak', 'sundal', 'taik', 'tetek'
+            ]; // Indonesian bad words; add more as needed
+
+            $messageLower = strtolower($validated['pesan']);
+            foreach ($badWords as $word) {
+                if (str_contains($messageLower, $word)) {
+                    throw \Illuminate\Validation\ValidationException::withMessages([
+                        'pesan' => 'Pesan mengandung konten tidak pantas. Silakan gunakan bahasa yang sopan dan positif.',
+                    ]);
+                }
+            }
+
             $comment = \App\Models\Comment::create([
                 'name' => $validated['nama'],
                 'subject' => 'Pesan untuk Haruna',
@@ -82,7 +103,7 @@ class PublicController extends Controller
             if ($request->expectsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Validasi gagal.',
+                    'message' => 'Pesan mengandung konten tidak pantas. Silakan gunakan bahasa yang sopan dan positif.',
                     'errors' => $e->errors(),
                 ], 422);
             }
